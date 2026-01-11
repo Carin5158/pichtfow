@@ -1,9 +1,20 @@
 "use client";
 import React, { useState } from 'react';
 
+// 1. On définit la structure d'une facture pour TypeScript
+interface Facture {
+  id: string;
+  client: string;
+  montant: string;
+  devise: string;
+  date: string;
+  echeance: string;
+  statut: string;
+}
+
 export default function FacturesPage() {
-  // État initial des factures
-  const [factures, setFactures] = useState([
+  // 2. On précise que l'état est un tableau de "Facture"
+  const [factures, setFactures] = useState<Facture[]>([
     { id: 'INV-2024-034', client: 'Client ABC', montant: '1250', devise: '€', date: '15 Jan 2026', echeance: '2026-01-30', statut: 'Payée' },
     { id: 'INV-2024-033', client: 'Startup XYZ', montant: '3500', devise: '$', date: '10 Jan 2026', echeance: '2026-01-25', statut: 'En attente' },
     { id: 'INV-2024-032', client: 'Agency Pro', montant: '850', devise: 'FCFA', date: '05 Jan 2026', echeance: '2026-01-20', statut: 'En retard' },
@@ -14,11 +25,10 @@ export default function FacturesPage() {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [hideValues, setHideValues] = useState(false);
 
-  // État du formulaire de création
   const [formData, setFormData] = useState({ client: '', montant: '', devise: '€', echeance: '', statut: 'En attente' });
 
-  // --- LOGIQUE DE MISE À JOUR DU STATUT ---
-  const handleStatusChange = (id, newStatus) => {
+  // --- LOGIQUE DE MISE À JOUR DU STATUT (Typer avec string pour le build) ---
+  const handleStatusChange = (id: string, newStatus: string) => {
     const updatedFactures = factures.map(f => {
       if (f.id === id) {
         return { ...f, statut: newStatus };
@@ -28,20 +38,20 @@ export default function FacturesPage() {
     setFactures(updatedFactures);
   };
 
-  // --- LOGIQUE DE CRÉATION ---
-  const handleCreate = (e) => {
+  // --- LOGIQUE DE CRÉATION (Typer l'événement React) ---
+  const handleCreate = (e: React.FormEvent) => {
     e.preventDefault();
     const dateToday = new Date().toLocaleDateString('fr-FR', { day: 'numeric', month: 'short', year: 'numeric' });
     const idAuto = `INV-2026-${Math.floor(1000 + Math.random() * 9000)}`;
     
-    const newInvoice = { ...formData, id: idAuto, date: dateToday };
+    const newInvoice: Facture = { ...formData, id: idAuto, date: dateToday };
     setFactures([newInvoice, ...factures]);
     setIsModalOpen(false);
     setFormData({ client: '', montant: '', devise: '€', echeance: '', statut: 'En attente' });
   };
 
   // --- TÉLÉCHARGEMENT TXT ---
-  const downloadInvoice = (item) => {
+  const downloadInvoice = (item: Facture) => {
     const text = `FACTURE : ${item.id}\nClient : ${item.client}\nMontant : ${item.montant} ${item.devise}\nStatut : ${item.statut}\nDate : ${item.date}`;
     const element = document.createElement("a");
     const file = new Blob([text], {type: 'text/plain'});
@@ -49,17 +59,16 @@ export default function FacturesPage() {
     element.download = `${item.id}.txt`;
     document.body.appendChild(element);
     element.click();
+    document.body.removeChild(element); // Bonne pratique
   };
 
-  // --- FILTRAGE ---
   const filteredFactures = factures.filter(f => {
     const matchSearch = f.client.toLowerCase().includes(searchTerm.toLowerCase());
     const matchStatus = filterStatus === 'Tous' || f.statut === filterStatus;
     return matchSearch && matchStatus;
   });
 
-  // Helper pour les classes CSS des badges
-  const getStatusClass = (status) => {
+  const getStatusClass = (status: string) => {
     switch(status) {
       case 'Payée': return 'status-paid';
       case 'En retard': return 'status-late';
@@ -69,7 +78,6 @@ export default function FacturesPage() {
 
   return (
     <div className="factures-container">
-      {/* MODAL DE CRÉATION */}
       {isModalOpen && (
         <div className="modal-overlay">
           <div className="modal-content">
@@ -114,7 +122,6 @@ export default function FacturesPage() {
         </div>
       )}
 
-      {/* BARRE DE RECHERCHE ET FILTRE */}
       <div className="table-toolbar">
         <div className="toolbar-actions">
           <div className="search-box">
@@ -134,7 +141,6 @@ export default function FacturesPage() {
         </div>
       </div>
 
-      {/* TABLEAU DES FACTURES */}
       <div className="div-table-container">
         <div className="div-table-header">
           <div className="col-id">ID</div>
