@@ -104,18 +104,7 @@ export default function DashboardLayout({
 
             {/* DIV DU MENU DROPDOWN (Affichée conditionnellement) */}
             {isProfileOpen && (
-              <div className="profile-dropdown" style={{
-                position: 'absolute',
-                top: '70px',
-                right: '20px',
-                backgroundColor: 'white',
-                boxShadow: '0 10px 15px -3px rgba(0, 0, 0, 0.1)',
-                borderRadius: '8px',
-                padding: '10px',
-                zIndex: 100,
-                minWidth: '180px',
-                border: '1px solid #e2e8f0'
-              }}>
+              <div className="profile-dropdown" >
                 <Link href="/parametres" className="menu-item" onClick={() => setIsProfileOpen(false)}>
                   <i className="fa-solid fa-user-gear"></i> Paramètres
                 </Link>
