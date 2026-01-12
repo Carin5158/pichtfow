@@ -36,12 +36,7 @@ export default function SettingsPage() {
               <i className="fa-solid fa-user-gear"></i>
               <h3>Mon Profil</h3>
             </div>
-            <button 
-              className={isEditing ? "btn-save" : "btn-edit-toggle"} 
-              onClick={isEditing ? handleSave : () => setIsEditing(true)}
-            >
-              {isEditing ? "Enregistrer" : "Modifier"}
-            </button>
+            
           </div>
           
           <div className="credits-display">

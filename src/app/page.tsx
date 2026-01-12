@@ -156,21 +156,21 @@ export default function Home() {
     <div className="pricing-card featured">
       <div className="popular-badge"><i className="fa-solid fa-bolt"></i> Plus Populaire</div>
       <h3>Pack Essentiel</h3>
-      <div className="price">5€<span>/50 crédits</span></div>
+      <div className="price">5€<span>/100 crédits</span></div>
       <p className="price-desc">Idéal pour vos besoins </p>
       <ul className="price-features">
-        <li><i className="fa-solid fa-circle-check"></i> <strong>50 crédits</strong> sans expiration</li>
+        <li><i className="fa-solid fa-circle-check"></i> <strong>100 crédits</strong> sans expiration</li>
         <li><i className="fa-solid fa-circle-check"></i> Génération de contenu haute qualité</li>
         <li><i className="fa-solid fa-circle-check"></i> Accès illimité aux differents outils</li>
         <li><i className="fa-solid fa-circle-check"></i> Export PDF disponible</li>
       </ul>
-      <button className="btn-primary-pricing">Acheter 50 crédits</button>
+      <button className="btn-primary-pricing">Acheter 100 crédits</button>
     </div>
 
     {/* Plan 100 Crédits - Meilleure Valeur */}
     <div className="pricing-card">
       <h3>Pack Business</h3>
-      <div className="price">8€<span>/100 crédits</span></div>
+      <div className="price">8€<span>/200 crédits</span></div>
       <p className="price-desc">Economique et approprié</p>
       <ul className="price-features">
         <li><i className="fa-solid fa-circle-check"></i> <strong>100 crédits</strong> automatique</li>
