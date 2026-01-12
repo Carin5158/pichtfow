@@ -4,40 +4,28 @@ import { useState } from 'react';
 import Link from 'next/link';
 
 export default function Connexion() {
-  // États pour la gestion du chargement
   const [isLoading, setIsLoading] = useState(false);
   const [isGoogleLoading, setIsGoogleLoading] = useState(false);
-  
   const [formData, setFormData] = useState({ email: '', password: '' });
 
-  // 1. GESTION DU CLIC GOOGLE (Redirection Backend)
   const handleGoogleLogin = () => {
     setIsGoogleLoading(true);
-    
-    // Le développeur Backend te donnera cette URL. 
-    // Elle redirige l'utilisateur vers Google pour validation.
     const BACKEND_GOOGLE_URL = "https://ton-api.com/auth/google"; 
-    
-    // On simule un petit délai avant la redirection pour l'effet visuel
     setTimeout(() => {
       window.location.href = BACKEND_GOOGLE_URL;
     }, 800);
   };
 
-  // 2. GESTION DU FORMULAIRE CLASSIQUE
-  const handleSubmit = async (e) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setIsLoading(true);
-    
-    // Ici le développeur backend fera son appel API (ex: fetch('/api/login'))
-    console.log("Données envoyées :", formData);
-    
-    // Simulation de réponse
+    // Simulation appel API
     setTimeout(() => setIsLoading(false), 2000);
   };
 
   return (
     <div className="auth-container">
+      {/* Côté Gauche : Formulaire */}
       <div className="auth-form-side">
         <div className="auth-header">
           <Link href="/" className="logo">
@@ -52,7 +40,7 @@ export default function Connexion() {
           <h1>Bon retour !</h1>
           <p className="subtitle">Connectez-vous pour accéder à votre dashboard</p>
 
-          {/* BOUTON GOOGLE AVEC ÉTAT DE CHARGEMENT */}
+          {/* AJOUT : BOUTON GOOGLE */}
           <button 
             type="button" 
             className="btn-google" 
@@ -62,14 +50,12 @@ export default function Connexion() {
             {isGoogleLoading ? (
               <i className="fa-solid fa-spinner fa-spin"></i>
             ) : (
-              <img 
-                src="https://fonts.gstatic.com/s/i/productlogos/googleg/v6/24px.svg" 
-                alt="Google" 
-              />
+              <img src="https://fonts.gstatic.com/s/i/productlogos/googleg/v6/24px.svg" alt="Google" />
             )}
-            {isGoogleLoading ? "Redirection..." : "Continuer avec Google"}
+            <span>{isGoogleLoading ? "Redirection..." : "Continuer avec Google"}</span>
           </button>
 
+          {/* AJOUT : SÉPARATEUR */}
           <div className="auth-separator">
             <span>OU</span>
           </div>
@@ -125,6 +111,7 @@ export default function Connexion() {
         </div>
       </div>
 
+      {/* Côté Droit : Panel Info */}
       <div className="auth-info-side">
         <div className="info-content">
           <div className="info-icon-box">
