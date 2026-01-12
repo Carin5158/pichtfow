@@ -3,6 +3,7 @@
 import "@/app/dashboard.css";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import { useState, useEffect, useRef } from "react";
 
 export default function DashboardLayout({
   children,
@@ -10,8 +11,22 @@ export default function DashboardLayout({
   children: React.ReactNode;
 }) {
   const pathname = usePathname();
+  
+  // --- LOGIQUE DU MENU PROFIL ---
+  const [isProfileOpen, setIsProfileOpen] = useState(false);
+  const profileRef = useRef<HTMLDivElement>(null);
 
-  // Tous les menus pour gérer les titres dynamiques
+  // Fermer le menu si on clique à l'extérieur
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (profileRef.current && !profileRef.current.contains(event.target as Node)) {
+        setIsProfileOpen(false);
+      }
+    };
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => document.removeEventListener("mousedown", handleClickOutside);
+  }, []);
+
   const allMenuItems = [
     { name: "Acceuil", path: "/dashboard", icon: "fa-house" },
     { name: "Marketing ", path: "/contenu-ia", icon: "fa-wand-magic-sparkles" },
@@ -19,14 +34,11 @@ export default function DashboardLayout({
     { name: "Factures", path: "/factures", icon: "fa-file-invoice" },
     { name: "Rapports", path: "/rapports", icon: "fa-chart-line" },
     { name: "Paramètres", path: "/parametres", icon: "fa-gear" }
-    
   ];
 
-  // Filtre pour la Sidebar (on ne veut pas tout afficher en haut)
   const sidebarPrimaryItems = allMenuItems.slice(0, 5);
   const sidebarSecondaryItems = allMenuItems.slice(5);
 
-  // Titre dynamique pour la Topbar
   const activeItem = allMenuItems.find((item) => item.path === pathname);
   const activeTitle = activeItem ? activeItem.name : "Dashboard";
 
@@ -44,30 +56,24 @@ export default function DashboardLayout({
         </div>
 
         <nav className="sidebar-menu">
-          {/* Groupe Principal */}
           <div className="menu-group">
             {sidebarPrimaryItems.map((item) => (
               <Link
                 key={item.path}
                 href={item.path}
-                className={`menu-item ${
-                  pathname === item.path ? "active" : ""
-                }`}
+                className={`menu-item ${pathname === item.path ? "active" : ""}`}
               >
                 <i className={`fa-solid ${item.icon}`}></i> {item.name}
               </Link>
             ))}
           </div>
 
-          {/* Groupe Bas (Paramètres, Aide, Profil) */}
           <div className="menu-group bottom">
             {sidebarSecondaryItems.map((item) => (
               <Link
                 key={item.path}
                 href={item.path}
-                className={`menu-item ${
-                  pathname === item.path ? "active" : ""
-                }`}
+                className={`menu-item ${pathname === item.path ? "active" : ""}`}
               >
                 <i className={`fa-solid ${item.icon}`}></i> {item.name}
               </Link>
@@ -87,11 +93,41 @@ export default function DashboardLayout({
                 : "Bienvenue sur PichFlow"}
             </p>
           </div>
-          <div className="topbar-right">
-            <button className="notif-btn">
-              <i className="fa-regular fa-bell"></i>
-              <span className="notif-badge"></span>
-            </button>
+
+          <div className="topbar-right" ref={profileRef}>
+            <button 
+              className="user-btn" 
+              onClick={() => setIsProfileOpen(!isProfileOpen)}
+            >
+              <span className="user-badge">ES</span>
+            </button> 
+
+            {/* DIV DU MENU DROPDOWN (Affichée conditionnellement) */}
+            {isProfileOpen && (
+              <div className="profile-dropdown" style={{
+                position: 'absolute',
+                top: '70px',
+                right: '20px',
+                backgroundColor: 'white',
+                boxShadow: '0 10px 15px -3px rgba(0, 0, 0, 0.1)',
+                borderRadius: '8px',
+                padding: '10px',
+                zIndex: 100,
+                minWidth: '180px',
+                border: '1px solid #e2e8f0'
+              }}>
+                <Link href="/parametres" className="menu-item" onClick={() => setIsProfileOpen(false)}>
+                  <i className="fa-solid fa-user-gear"></i> Paramètres
+                </Link>
+                <button 
+                  className="menu-item" 
+                  style={{ width: '100%', textAlign: 'left', border: 'none', background: 'none', cursor: 'pointer', color: '#dc2626' }}
+                  onClick={() => console.log("Déconnexion...")}
+                >
+                  <i className="fa-solid fa-right-from-bracket"></i> Déconnexion
+                </button>
+              </div>
+            )}
           </div>
         </header>
 
@@ -120,4 +156,4 @@ export default function DashboardLayout({
       </nav>
     </div>
   );
-}
+} 
