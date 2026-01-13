@@ -242,7 +242,7 @@ export default function FacturesPage() {
                   <option value="En attente">En attente</option>
                   <option value="En retard">En retard</option>
                 </select>
-              </div>
+              </div> 
               <div className="col-actions">
                 <button onClick={() => setHideValues(!hideValues)} title="Masquer"><i className={`fa-regular ${hideValues ? 'fa-eye-slash':'fa-eye'}`}></i></button>
                 <button onClick={() => handleEditClick(item)} title="Modifier"><i className="fa-solid fa-pen-to-square" style={{color: '#2563eb'}}></i></button>
@@ -252,6 +252,9 @@ export default function FacturesPage() {
             </div>
           ))}
         </div>
+
+        <br />
+        <br /> <br />
       </div>
     </div>
   );

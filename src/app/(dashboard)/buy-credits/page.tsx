@@ -8,9 +8,9 @@ export default function BuyCreditsPage() {
   const [isPaying, setIsPaying] = useState(false);
 
   const packs = [
-    { id: 1, name: "Starter", credits: 500, price: 9.99, icon: "fa-seedling" },
-    { id: 2, name: "Pro", credits: 2000, price: 24.99, icon: "fa-rocket", popular: true },
-    { id: 3, name: "Business", credits: 5000, price: 49.99, icon: "fa-crown" },
+    { id: 1, name: "Offre 1", credits: 100, price: 5, icon: "fa-seedling" },
+    { id: 2, name: "Offre 2", credits: 200, price: 8, icon: "fa-rocket", popular: true },
+    { id: 3, name: "Offre 3", credits: 1000, price: 20, icon: "fa-crown" },
   ];
 
   const handlePayment = () => {
@@ -20,7 +20,7 @@ export default function BuyCreditsPage() {
       setIsPaying(false);
       alert("Paiement réussi ! Vos crédits ont été ajoutés.");
       router.push('/parametres');
-    }, 2500);
+    }, 2500); 
   };
 
   return (
@@ -47,7 +47,7 @@ export default function BuyCreditsPage() {
             <button className="btn-select-pack">
               {selectedPack === pack.id ? "Sélectionné" : "Choisir ce pack"}
             </button>
-          </div>
+          </div> 
         ))}
       </div>
 

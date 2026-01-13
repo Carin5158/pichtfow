@@ -159,7 +159,7 @@ export default function Home() {
       <div className="price">5€<span>/100 crédits</span></div>
       <p className="price-desc">Idéal pour vos besoins </p>
       <ul className="price-features">
-        <li><i className="fa-solid fa-circle-check"></i> <strong>100 crédits</strong> sans expiration</li>
+        <li><i className="fa-solid fa-circle-check"></i> <strong>100 crédits</strong> automatique</li>
         <li><i className="fa-solid fa-circle-check"></i> Génération de contenu haute qualité</li>
         <li><i className="fa-solid fa-circle-check"></i> Accès illimité aux differents outils</li>
         <li><i className="fa-solid fa-circle-check"></i> Export PDF disponible</li>
@@ -173,9 +173,8 @@ export default function Home() {
       <div className="price">8€<span>/200 crédits</span></div>
       <p className="price-desc">Economique et approprié</p>
       <ul className="price-features">
-        <li><i className="fa-solid fa-circle-check"></i> <strong>100 crédits</strong> automatique</li>
+        <li><i className="fa-solid fa-circle-check"></i> <strong>200 crédits</strong> automatique</li>
         <li><i className="fa-solid fa-circle-check"></i> Économisez 20% sur le prix</li>
-        <li><i className="fa-solid fa-circle-check"></i> Tout le contenu IA illimité</li>
         <li><i className="fa-solid fa-circle-check"></i> Génération de contenu haute qualité</li>
         <li><i className="fa-solid fa-circle-check"></i> Export PDF disponible</li>
       </ul>

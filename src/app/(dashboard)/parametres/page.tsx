@@ -104,6 +104,8 @@ export default function SettingsPage() {
             </div>
           </div>
         </section>
+        <br />
+        <br /> <br />
       </div>
     </div>
   );
