@@ -27,7 +27,7 @@ export default function SettingsPage() {
         <h1>Paramètres</h1>
         <p>Gérez vos informations personnelles et votre sécurité.</p>
       </header>
-
+ 
       <div className="settings-grid">
         {/* SECTION 1 : PROFIL & CRÉDITS */}
         <section className="settings-card reveal">
@@ -88,7 +88,7 @@ export default function SettingsPage() {
                 <h4>Mot de passe</h4>
                 <p>Sécurisez votre compte avec un mot de passe robuste.</p>
               </div>
-              <Link href="/change-password" title="Changer le mot de passe">Changer le mot de passe</Link>
+              <Link href="/change-password" className='change-password'>Changer le mot de passe</Link>
             </div>
 
             <hr className="divider" />

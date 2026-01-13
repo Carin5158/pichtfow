@@ -111,7 +111,7 @@ export default function DashboardLayout({
                 <button 
                   className="menu-item" 
                   style={{ width: '100%', textAlign: 'left', border: 'none', background: 'none', cursor: 'pointer', color: '#dc2626' }}
-                  onClick={() => console.log("Déconnexion...")}
+                  onClick={() => window.location.href = '/'}
                 >
                   <i className="fa-solid fa-right-from-bracket"></i> Déconnexion
                 </button>
