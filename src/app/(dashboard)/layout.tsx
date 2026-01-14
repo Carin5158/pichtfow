@@ -11,12 +11,9 @@ export default function DashboardLayout({
   children: React.ReactNode;
 }) {
   const pathname = usePathname();
-  
-  // --- LOGIQUE DU MENU PROFIL ---
   const [isProfileOpen, setIsProfileOpen] = useState(false);
   const profileRef = useRef<HTMLDivElement>(null);  
 
-  // Fermer le menu si on clique à l'extérieur
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
       if (profileRef.current && !profileRef.current.contains(event.target as Node)) {
@@ -44,7 +41,6 @@ export default function DashboardLayout({
 
   return (
     <div className="dashboard-container">
-      {/* --- SIDEBAR DESKTOP --- */}
       <aside className="sidebar">
         <div className="sidebar-header">
           <Link href="/dashboard" className="logo">
@@ -82,7 +78,6 @@ export default function DashboardLayout({
         </nav>
       </aside>
 
-      {/* --- ZONE PRINCIPALE --- */}
       <main className="dashboard-main">
         <header className="topbar">
           <div className="topbar-left">
@@ -95,24 +90,16 @@ export default function DashboardLayout({
           </div>
 
           <div className="topbar-right" ref={profileRef}>
-            <button 
-              className="user-btn" 
-              onClick={() => setIsProfileOpen(!isProfileOpen)}
-            >  
+            <button className="user-btn" onClick={() => setIsProfileOpen(!isProfileOpen)}>  
               <span className="user-badge"><i className="fa-solid fa-user"></i></span>
             </button> 
 
-            {/* DIV DU MENU DROPDOWN (Affichée conditionnellement) */}
             {isProfileOpen && (
-              <div className="profile-dropdown" >
+              <div className="profile-dropdown">
                 <Link href="/parametres" className="menu-item" onClick={() => setIsProfileOpen(false)}>
                   <i className="fa-solid fa-user-gear"></i> Paramètres
                 </Link>
-                <button 
-                  className="menu-item" 
-                  style={{ width: '100%', textAlign: 'left', border: 'none', background: 'none', cursor: 'pointer', color: '#dc2626' }}
-                  onClick={() => window.location.href = '/'}
-                >
+                <button className="menu-item logout-btn" onClick={() => window.location.href = '/'}>
                   <i className="fa-solid fa-right-from-bracket"></i> Déconnexion
                 </button>
               </div>
@@ -123,7 +110,6 @@ export default function DashboardLayout({
         <section className="content-area">{children}</section>
       </main>
 
-      {/* --- NAVIGATION MOBILE --- */}
       <nav className="mobile-tab-bar">
         {sidebarPrimaryItems.slice(0, 4).map((item) => (
           <Link
@@ -133,16 +119,13 @@ export default function DashboardLayout({
           >
             <i className={`fa-solid ${item.icon}`}></i>
             <span>{item.name}</span>
-          </Link>
+          </Link> 
         ))}
-        <Link
-          href="/parametres" 
-          className={`tab-item ${pathname === "/parametres" ? "active" : ""}`}
-        >
+        <Link href="/parametres" className={`tab-item ${pathname === "/parametres" ? "active" : ""}`}>
           <i className="fa-solid fa-gear"></i>
           <span>Paramètres</span>
         </Link>
       </nav>
     </div>
   );
-} 
+}
