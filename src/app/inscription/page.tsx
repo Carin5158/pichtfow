@@ -1,6 +1,26 @@
+'use client';
+
+import { useState } from 'react';
 import Link from 'next/link';
+import { useRouter } from 'next/navigation';
 
 export default function Inscription() {
+  const router = useRouter();
+  const [isLoading, setIsLoading] = useState(false);
+  const [formData, setFormData] = useState({ name: '', email: '', password: '' });
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setIsLoading(true);
+
+    // Simulation de création de compte (2 secondes)
+    setTimeout(() => {
+      setIsLoading(false);
+      // Redirection vers le dashboard après inscription
+      router.push('/dashboard');
+    }, 2000);
+  };
+
   return (
     <div className="auth-container">
       {/* Côté Gauche : Formulaire */}
@@ -18,12 +38,18 @@ export default function Inscription() {
           <h1>Créez votre compte</h1>
           <p className="subtitle">Commencez votre essai gratuit de 7 jours</p>
 
-          <form className="auth-form">
+          <form className="auth-form" onSubmit={handleSubmit}>
             <div className="input-group">
               <label>Nom complet</label>
               <div className="input-wrapper">
                 <i className="fa-regular fa-user"></i>
-                <input type="text" placeholder="John Doe" required />
+                <input 
+                  type="text" 
+                  placeholder="John Doe" 
+                  required 
+                  value={formData.name}
+                  onChange={(e) => setFormData({...formData, name: e.target.value})}
+                />
               </div>
             </div>
 
@@ -31,7 +57,13 @@ export default function Inscription() {
               <label>Email</label>
               <div className="input-wrapper">
                 <i className="fa-regular fa-envelope"></i>
-                <input type="email" placeholder="john@example.com" required />
+                <input 
+                  type="email" 
+                  placeholder="john@example.com" 
+                  required 
+                  value={formData.email}
+                  onChange={(e) => setFormData({...formData, email: e.target.value})}
+                />
               </div>
             </div>
 
@@ -39,12 +71,29 @@ export default function Inscription() {
               <label>Mot de passe</label>
               <div className="input-wrapper">
                 <i className="fa-solid fa-lock"></i>
-                <input type="password" placeholder="........" required />
+                <input 
+                  type="password" 
+                  placeholder="........" 
+                  required 
+                  value={formData.password}
+                  onChange={(e) => setFormData({...formData, password: e.target.value})}
+                />
               </div>
             </div>
 
-            <button type="submit" className="btn-auth-submit">
-              Créer mon compte <i className="fa-solid fa-arrow-right"></i>
+            <button 
+              type="submit" 
+              className="btn-auth-submit" 
+              disabled={isLoading}
+            >
+              {isLoading ? (
+                <>
+                  <i className="fa-solid fa-circle-notch fa-spin" style={{ marginRight: '8px' }}></i> 
+                  Création du compte...
+                </>
+              ) : (
+                <>Créer mon compte <i className="fa-solid fa-arrow-right"></i></>
+              )}
             </button>
           </form>
 

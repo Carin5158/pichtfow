@@ -41,7 +41,7 @@ export default function SettingsPage() {
           
           <div className="credits-display">
             <div className="credits-info">
-              <span className="label">Solde de crédits IA</span>
+              <span className="label">Solde de crédits </span>
               <span className="count">{creditsUsed.toLocaleString()} / {creditsTotal.toLocaleString()}</span>
             </div>
             {/* Barre de progression ajoutée */}

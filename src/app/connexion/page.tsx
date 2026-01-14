@@ -2,25 +2,32 @@
 
 import { useState } from 'react';
 import Link from 'next/link';
+import { useRouter } from 'next/navigation'; // Import pour la redirection
 
 export default function Connexion() {
+  const router = useRouter(); // Initialisation du router
   const [isLoading, setIsLoading] = useState(false);
   const [isGoogleLoading, setIsGoogleLoading] = useState(false);
   const [formData, setFormData] = useState({ email: '', password: '' });
 
   const handleGoogleLogin = () => {
     setIsGoogleLoading(true);
-    const BACKEND_GOOGLE_URL = "https://ton-api.com/auth/google"; 
+    // On simule une redirection vers le dashboard même pour Google pour tes tests
     setTimeout(() => {
-      window.location.href = BACKEND_GOOGLE_URL;
-    }, 800);
+      router.push('/dashboard');
+    }, 1500);
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setIsLoading(true);
-    // Simulation appel API
-    setTimeout(() => setIsLoading(false), 2000);
+    
+    // Simulation de l'appel API (2 secondes de chargement)
+    setTimeout(() => {
+      setIsLoading(false);
+      // Redirection automatique vers le dashboard
+      router.push('/dashboard');
+    }, 2000);
   };
 
   return (
@@ -40,7 +47,7 @@ export default function Connexion() {
           <h1>Bon retour !</h1>
           <p className="subtitle">Connectez-vous pour accéder à votre dashboard</p>
 
-          {/* AJOUT : BOUTON GOOGLE */}
+          {/* BOUTON GOOGLE */}
           <button 
             type="button" 
             className="btn-google" 
@@ -52,10 +59,9 @@ export default function Connexion() {
             ) : (
               <img src="https://fonts.gstatic.com/s/i/productlogos/googleg/v6/24px.svg" alt="Google" />
             )}
-            <span>{isGoogleLoading ? "Redirection..." : "Continuer avec Google"}</span>
+            <span>{isGoogleLoading ? "Connexion..." : "Continuer avec Google"}</span>
           </button>
 
-          {/* AJOUT : SÉPARATEUR */}
           <div className="auth-separator">
             <span>OU</span>
           </div>
@@ -98,7 +104,10 @@ export default function Connexion() {
               disabled={isLoading || isGoogleLoading}
             >
               {isLoading ? (
-                <><i className="fa-solid fa-spinner fa-spin"></i> Connexion...</>
+                <>
+                  <i className="fa-solid fa-circle-notch fa-spin" style={{ marginRight: '8px' }}></i> 
+                  Vérification...
+                </>
               ) : (
                 <>Se connecter <i className="fa-solid fa-arrow-right"></i></>
               )}

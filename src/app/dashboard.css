@@ -1030,3 +1030,91 @@ font-size: 18px;
   }
 }
 
+
+
+
+/* Filtres de dates personnalisées */
+.custom-date-filters {
+    display: flex;
+    align-items: flex-end;
+    gap: 15px;
+    background: white;
+    padding: 20px;
+    border-radius: 12px;
+    border: 1px solid #E2E8F0;
+    margin-bottom: 20px;
+    animation: slideDown 0.3s ease-out;
+}
+
+.date-input {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.date-input label {
+    font-size: 0.8rem;
+    font-weight: 600;
+    color: #64748B;
+}
+
+.date-input input {
+    padding: 8px 12px;
+    border-radius: 8px;
+    border: 1px solid #CBD5E1;
+    font-family: inherit;
+}
+
+.btn-apply {
+    background: #2563EB;
+    color: white;
+    border: none;
+    padding: 9px 20px;
+    border-radius: 8px;
+    font-weight: 600;
+    cursor: pointer;
+}
+
+.print-only-header { display: none; }
+
+/* --- LOGIQUE PDF (IMPRESSION) --- */
+@media print {
+    /* Masquer les éléments inutiles */
+    .no-print, .sidebar, .topbar, .mobile-tab-bar, .custom-date-filters {
+        display: none !important;
+    }
+
+    .dashboard-main { padding: 0 !important; margin: 0 !important; }
+    .reports-container { padding: 0 !important; }
+
+    /* Forcer l'affichage du titre PDF */
+    .print-only-header {
+        display: block !important;
+        margin-bottom: 30px;
+        text-align: center;
+    }
+
+    /* Ajuster la grille pour qu'elle tienne sur une page A4 */
+    .charts-main-grid {
+        display: flex !important;
+        flex-direction: column !important;
+        gap: 30px !important;
+    }
+
+    .chart-card {
+        break-inside: avoid;
+        border: 1px solid #EEE !important;
+        box-shadow: none !important;
+    }
+
+    /* Forcer les couleurs de Recharts à l'impression */
+    * {
+        -webkit-print-color-adjust: exact !important;
+        print-color-adjust: exact !important;
+    }
+}
+
+@keyframes slideDown {
+    from { opacity: 0; transform: translateY(-10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
