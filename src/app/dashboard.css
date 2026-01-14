@@ -1034,8 +1034,11 @@ font-size: 18px;
 
 
 /* Filtres de dates personnalisées */
+/* --- Correction Responsive pour les filtres --- */
+
 .custom-date-filters {
     display: flex;
+    flex-wrap: wrap; /* Permet le passage à la ligne */
     align-items: flex-end;
     gap: 15px;
     background: white;
@@ -1043,6 +1046,8 @@ font-size: 18px;
     border-radius: 12px;
     border: 1px solid #E2E8F0;
     margin-bottom: 20px;
+    width: 100%; /* S'assure de ne pas dépasser */
+    box-sizing: border-box; /* Inclut le padding dans le calcul de la largeur */
     animation: slideDown 0.3s ease-out;
 }
 
@@ -1050,6 +1055,8 @@ font-size: 18px;
     display: flex;
     flex-direction: column;
     gap: 8px;
+    flex: 1; /* Les champs s'étirent pour remplir l'espace */
+    min-width: 200px; /* Force le passage à la ligne sur petit mobile */
 }
 
 .date-input label {
@@ -1059,62 +1066,60 @@ font-size: 18px;
 }
 
 .date-input input {
-    padding: 8px 12px;
+    width: 100%; /* L'input prend toute la largeur de son parent */
+    padding: 10px 12px;
     border-radius: 8px;
     border: 1px solid #CBD5E1;
     font-family: inherit;
+    box-sizing: border-box;
+    font-size: 14px; /* Évite le zoom automatique sur iPhone */
 }
 
 .btn-apply {
     background: #2563EB;
     color: white;
     border: none;
-    padding: 9px 20px;
+    padding: 12px 20px;
     border-radius: 8px;
     font-weight: 600;
     cursor: pointer;
+    white-space: nowrap;
+    transition: background 0.2s;
 }
 
-.print-only-header { display: none; }
-
-/* --- LOGIQUE PDF (IMPRESSION) --- */
-@media print {
-    /* Masquer les éléments inutiles */
-    .no-print, .sidebar, .topbar, .mobile-tab-bar, .custom-date-filters {
-        display: none !important;
+/* --- Media Query Spécifique Mobile --- */
+@media (max-width: 600px) {
+    .custom-date-filters {
+        flex-direction: column; /* Empilement vertical strict */
+        align-items: stretch; /* Les boutons et inputs prennent toute la largeur */
+        padding: 15px;
     }
 
-    .dashboard-main { padding: 0 !important; margin: 0 !important; }
-    .reports-container { padding: 0 !important; }
-
-    /* Forcer l'affichage du titre PDF */
-    .print-only-header {
-        display: block !important;
-        margin-bottom: 30px;
-        text-align: center;
+    .date-input {
+        min-width: 100%;
     }
 
-    /* Ajuster la grille pour qu'elle tienne sur une page A4 */
-    .charts-main-grid {
-        display: flex !important;
-        flex-direction: column !important;
-        gap: 30px !important;
+    .btn-apply {
+        width: 100%;
+        margin-top: 10px;
     }
 
-    .chart-card {
-        break-inside: avoid;
-        border: 1px solid #EEE !important;
-        box-shadow: none !important;
-    }
-
-    /* Forcer les couleurs de Recharts à l'impression */
-    * {
-        -webkit-print-color-adjust: exact !important;
-        print-color-adjust: exact !important;
+    /* Ajustement des KPIs pour éviter le scroll horizontal */
+    .stats-grid {
+        grid-template-columns: 1fr 1fr; /* 2 colonnes sur mobile */
+        gap: 10px;
     }
 }
 
+/* Animation */
 @keyframes slideDown {
     from { opacity: 0; transform: translateY(-10px); }
     to { opacity: 1; transform: translateY(0); }
+}
+
+/* --- Style spécifique pour l'impression (PDF) --- */
+@media print {
+    .no-print, .sidebar, .topbar, .mobile-tab-bar, .custom-date-filters {
+        display: none !important;
+    }
 }
