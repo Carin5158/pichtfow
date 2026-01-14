@@ -14,7 +14,7 @@ export default function DashboardLayout({
   
   // --- LOGIQUE DU MENU PROFIL ---
   const [isProfileOpen, setIsProfileOpen] = useState(false);
-  const profileRef = useRef<HTMLDivElement>(null);
+  const profileRef = useRef<HTMLDivElement>(null);  
 
   // Fermer le menu si on clique à l'extérieur
   useEffect(() => {
@@ -98,8 +98,8 @@ export default function DashboardLayout({
             <button 
               className="user-btn" 
               onClick={() => setIsProfileOpen(!isProfileOpen)}
-            >
-              <span className="user-badge">ES</span>
+            >  
+              <span className="user-badge"><i className="fa-solid fa-user"></i></span>
             </button> 
 
             {/* DIV DU MENU DROPDOWN (Affichée conditionnellement) */}
@@ -136,7 +136,7 @@ export default function DashboardLayout({
           </Link>
         ))}
         <Link
-          href="/parametres"
+          href="/parametres" 
           className={`tab-item ${pathname === "/parametres" ? "active" : ""}`}
         >
           <i className="fa-solid fa-gear"></i>
