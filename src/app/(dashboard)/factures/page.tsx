@@ -23,20 +23,16 @@ export default function FacturesPage() {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [hideValues, setHideValues] = useState(false);
   
-  // États pour la modification
   const [isEditing, setIsEditing] = useState(false);
   const [currentInvoiceId, setCurrentInvoiceId] = useState<string | null>(null);
-
   const [formData, setFormData] = useState({ client: '', montant: '', devise: '€', echeance: '', statut: 'En attente' });
 
-  // --- LOGIQUE DE SUPPRESSION ---
   const handleDelete = (id: string) => {
     if (window.confirm("Voulez-vous vraiment supprimer cette facture ?")) {
       setFactures(factures.filter(f => f.id !== id));
     }
   };
 
-  // --- LOGIQUE D'OUVERTURE POUR MODIFICATION ---
   const handleEditClick = (item: Facture) => {
     setIsEditing(true);
     setCurrentInvoiceId(item.id);
@@ -50,10 +46,9 @@ export default function FacturesPage() {
     setIsModalOpen(true);
   };
 
-  // --- LOGIQUE DE SAUVEGARDE (CREATION OU EDITION) ---
   const handleSave = (e: React.FormEvent) => {
     e.preventDefault();
-    const currentYear = new Date().getFullYear(); // Capture auto de l'année
+    const currentYear = new Date().getFullYear();
 
     if (isEditing && currentInvoiceId) {
       setFactures(factures.map(f => f.id === currentInvoiceId ? { ...f, ...formData } : f));
@@ -70,57 +65,79 @@ export default function FacturesPage() {
     setFormData({ client: '', montant: '', devise: '€', echeance: '', statut: 'En attente' });
   };
 
-  // --- LOGIQUE DE TÉLÉCHARGEMENT PDF STYLISÉ ---
+  // --- LOGIQUE DE TÉLÉCHARGEMENT PDF STYLISÉ (CORRIGÉE) ---
   const downloadPDF = (item: Facture) => {
     const printWindow = window.open('', '_blank');
     if (!printWindow) return;
 
-    // On crée un document HTML temporaire pour le PDF
     printWindow.document.write(`
       <html>
         <head>
           <title>Facture ${item.id}</title>
           <style>
-            body { font-family: sans-serif; padding: 40px; color: #333; }
-            .header { display: flex; justify-content: space-between; border-bottom: 2px solid #eee; padding-bottom: 20px; }
-            .logo { font-size: 24px; font-weight: bold; color: #2563eb; }
-            .info-section { margin-top: 40px; display: flex; justify-content: space-between; }
+            body { font-family: 'Helvetica', 'Arial', sans-serif; padding: 40px; color: #333; line-height: 1.6; }
+            .header { display: flex; justify-content: space-between; border-bottom: 2px solid #3b82f6; padding-bottom: 20px; }
+            .logo { font-size: 28px; font-weight: 800; color: #2563eb; }
+            .info-section { margin-top: 40px; display: grid; grid-template-columns: 1fr 1fr; gap: 40px; }
             .table { width: 100%; margin-top: 40px; border-collapse: collapse; }
-            .table th { background: #f9fafb; padding: 12px; text-align: left; border-bottom: 1px solid #eee; }
-            .table td { padding: 12px; border-bottom: 1px solid #eee; }
-            .total { margin-top: 40px; text-align: right; font-size: 20px; font-weight: bold; }
-            .footer { margin-top: 60px; font-size: 12px; color: #999; text-align: center; }
+            .table th { background: #f8fafc; padding: 15px; text-align: left; border-bottom: 2px solid #e2e8f0; color: #64748b; text-transform: uppercase; font-size: 12px; }
+            .table td { padding: 15px; border-bottom: 1px solid #f1f5f9; }
+            .total-box { margin-top: 40px; padding: 20px; background: #f8fafc; border-radius: 8px; float: right; min-width: 250px; }
+            .total-row { display: flex; justify-content: space-between; font-size: 18px; font-weight: bold; color: #1e293b; }
+            .footer { margin-top: 100px; clear: both; font-size: 12px; color: #94a3b8; text-align: center; border-top: 1px solid #f1f5f9; padding-top: 20px; }
+            @media print { .no-print { display: none; } }
           </style>
         </head>
         <body>
           <div class="header">
             <div class="logo">PitchFlow</div>
             <div style="text-align: right">
-              <h2 style="margin:0">FACTURE</h2>
-              <p style="margin:5px 0">N° ${item.id}</p>
+              <h1 style="margin:0; color: #1e293b;">FACTURE</h1>
+              <p style="margin:5px 0; color: #64748b;">Référence: <strong>${item.id}</strong></p>
             </div>
           </div>
           <div class="info-section">
             <div>
-              <p><strong>Émetteur:</strong><br/>PitchFlow IA Service</p>
+              <h4 style="margin-bottom:10px; color: #64748b;">DE:</h4>
+              <p><strong>PitchFlow IA Service</strong><br/>75001 Paris, France<br/>contact@pitchflow.com</p>
             </div>
             <div style="text-align: right">
-              <p><strong>Client:</strong><br/>${item.client}</p>
-              <p><strong>Date:</strong> ${item.date}<br/><strong>Échéance:</strong> ${item.echeance}</p>
+              <h4 style="margin-bottom:10px; color: #64748b;">POUR:</h4>
+              <p><strong>${item.client}</strong></p>
+              <p>Émise le: ${item.date}<br/>Échéance: ${item.echeance}</p>
             </div>
           </div>
           <table class="table">
             <thead>
-              <tr><th>Description</th><th style="text-align: right">Montant</th></tr>
+              <tr>
+                <th>Description</th>
+                <th style="text-align: right">Montant HT</th>
+              </tr>
             </thead>
             <tbody>
-              <tr><td>Services de marketing digital et génération IA</td><td style="text-align: right">${item.montant} ${item.devise}</td></tr>
+              <tr>
+                <td>Services de marketing digital et génération de contenu par IA</td>
+                <td style="text-align: right"><strong>${item.montant} ${item.devise}</strong></td>
+              </tr>
             </tbody>
           </table>
-          <div class="total">Total à payer: ${item.montant} ${item.devise}</div>
-          <div class="footer">Généré via PitchFlow - Merci de votre confiance.</div>
+          <div class="total-box">
+            <div class="total-row">
+              <span>TOTAL NET:</span>
+              <span>${item.montant} ${item.devise}</span>
+            </div>
+          </div>
+          <div class="footer">
+            <p>Cette facture est générée électroniquement par PitchFlow.<br/>
+            Statut actuel: <strong>${item.statut}</strong></p>
+          </div>
           <script>
-            window.onload = function() { window.print(); window.close(); }
+            window.onload = function() { 
+              setTimeout(function() {
+                window.print(); 
+                window.close();
+              }, 500);
+            }
           </script>
         </body>
       </html>
@@ -252,9 +269,6 @@ export default function FacturesPage() {
             </div>
           ))}
         </div>
-
-        <br />
-        <br /> <br />
       </div>
     </div>
   );
