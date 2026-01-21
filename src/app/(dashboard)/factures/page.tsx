@@ -18,7 +18,7 @@ export default function FacturesPage() {
     { id: 'INV-2026-032', client: 'Agency Pro', montant: '850', devise: 'FCFA', date: '05 Jan 2026', echeance: '2026-01-20', statut: 'En retard' },
   ]);
 
-  // Charger la bibliothèque PDF dynamiquement
+  // Charger la bibliothèque PDF dynamiquement 
   useEffect(() => {
     const script = document.createElement("script");
     script.src = "https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js";
@@ -36,7 +36,7 @@ export default function FacturesPage() {
   const [formData, setFormData] = useState({ client: '', montant: '', devise: '€', echeance: '', statut: 'En attente' });
 
   const handleDelete = (id: string) => {
-    if (window.confirm("Voulez-vous vraiment supprimer cette facture ?")) {
+    if (window.confirm("Voulez-vous supprimer cette facture ?")) {
       setFactures(factures.filter(f => f.id !== id));
     }
   };
@@ -119,7 +119,7 @@ export default function FacturesPage() {
       </div>
     `;
 
-    // Configuration de html2pdf
+    // Configuration de html2pdf 
     const options = {
       margin: 0,
       filename: `Facture_${item.id}.pdf`,

@@ -52,7 +52,7 @@ export default function SettingsPage() {
           </div>
 
           <div className="input-group-row">
-            <div className="input-field">
+            <div className="input-field"> 
               <label>Nom complet</label>
               <input 
                 type="text" 

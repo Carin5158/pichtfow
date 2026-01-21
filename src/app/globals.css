@@ -1846,7 +1846,8 @@ body {
 
 
 
-
+ .security-actions .change-password {
+color: red;}
 /* ============================================================
    SECTION : COMMENT ÇA MARCHE (HOW IT WORKS)
    ============================================================ */
@@ -2036,4 +2037,11 @@ body {
         width: 100%;
         justify-content: center;
     }
+}
+
+
+.factures-container .table-toolbar .btn-new {
+  font-size: 18px;
+  width: fit-content;
+  font-family: "Poppins", sans-serif;
 }

@@ -131,6 +131,52 @@ export default function Home() {
 </div>
 </section>
 
+{/* --- SECTION COMMENT ÇA MARCHE --- */}
+<section className="how-it-works reveal">
+  <div className="features-header">
+    <h2>Démarrer en <span>3 étapes simples</span></h2>
+    <p>Pas de configuration complexe. Commencez à produire en moins de 2 minutes.</p>
+  </div>
+
+  <div className="steps-grid">
+    <div className="step-card">
+      <div className="step-num">1</div>
+      <div className="step-icon"><i className="fa-solid fa-hand-pointer"></i></div>
+      <h4>Sélectionnez un outil</h4>
+      <p>Choisissez entre la génération de contenu IA ou l'outil de facturation pro.</p>
+    </div>
+
+    <div className="step-card">
+      <div className="step-num">2</div>
+      <div className="step-icon"><i className="fa-solid fa-wand-magic-sparkles"></i></div>
+      <h4>Saisissez vos données</h4>
+      <p>L'IA génère vos textes marketing ou calcule vos rapports financiers instantanément.</p>
+    </div>
+
+    <div className="step-card">
+      <div className="step-num">3</div>
+      <div className="step-icon"><i className="fa-solid fa-circle-check"></i></div>
+      <h4>Exportez et utilisez</h4>
+      <p>Téléchargez vos factures en PDF ou publiez vos contenus directement.</p>
+    </div>
+  </div>
+</section>
+
+{/* --- SECTION CTA FINAL --- */} 
+<section className="final-cta reveal">
+  <div className="cta-content">
+    <h2>Prêt à propulser votre activité ?</h2>
+    <p>Rejoignez plus de 2,500 professionnels qui automatisent leur quotidien avec PitchFlow.</p>
+    <div className="hero-btns">
+      <a href="/inscription" className="btn-white">
+        Essayer gratuitement <i className="fa-solid fa-rocket"></i>
+      </a>
+    </div>
+    <span className="no-card">Aucune carte de crédit requise pour l'essai.</span>
+  </div>
+</section>
+
+
 <section id="pricing" className="pricing reveal">
   <div className="pricing-header">
     <h2>Des tarifs <span>simples et flexibles</span></h2>
@@ -182,50 +228,6 @@ export default function Home() {
     </div>
   </div>
 
-{/* --- SECTION COMMENT ÇA MARCHE --- */}
-<section className="how-it-works reveal">
-  <div className="features-header">
-    <h2>Démarrer en <span>3 étapes simples</span></h2>
-    <p>Pas de configuration complexe. Commencez à produire en moins de 2 minutes.</p>
-  </div>
-
-  <div className="steps-grid">
-    <div className="step-card">
-      <div className="step-num">1</div>
-      <div className="step-icon"><i className="fa-solid fa-hand-pointer"></i></div>
-      <h4>Sélectionnez un outil</h4>
-      <p>Choisissez entre la génération de contenu IA ou l'outil de facturation pro.</p>
-    </div>
-
-    <div className="step-card">
-      <div className="step-num">2</div>
-      <div className="step-icon"><i className="fa-solid fa-wand-magic-sparkles"></i></div>
-      <h4>Saisissez vos données</h4>
-      <p>L'IA génère vos textes marketing ou calcule vos rapports financiers instantanément.</p>
-    </div>
-
-    <div className="step-card">
-      <div className="step-num">3</div>
-      <div className="step-icon"><i className="fa-solid fa-circle-check"></i></div>
-      <h4>Exportez et utilisez</h4>
-      <p>Téléchargez vos factures en PDF ou publiez vos contenus directement.</p>
-    </div>
-  </div>
-</section>
-
-{/* --- SECTION CTA FINAL --- */}
-<section className="final-cta reveal">
-  <div className="cta-content">
-    <h2>Prêt à propulser votre activité ?</h2>
-    <p>Rejoignez plus de 2,500 professionnels qui automatisent leur quotidien avec PitchFlow.</p>
-    <div className="hero-btns">
-      <a href="/inscription" className="btn-white">
-        Essayer gratuitement <i className="fa-solid fa-rocket"></i>
-      </a>
-    </div>
-    <span className="no-card">Aucune carte de crédit requise pour l'essai.</span>
-  </div>
-</section>
 
 
   <div className="pricing-trust reveal delay-2">
