@@ -88,12 +88,12 @@ export default function FacturesPage() {
         <div style="margin-top: 40px; display: flex; justify-content: space-between;">
           <div>
             <p style="color: #666; margin-bottom: 5px;">ÉMETTEUR</p>
-            <p><strong>PitchFlow IA Service</strong><br>Paris, France</p>
+            <p><strong>PitchFlow IA Service</strong><br></p>
           </div>
           <div style="text-align: right;">
             <p style="color: #666; margin-bottom: 5px;">CLIENT</p>
-            <p><strong>${item.client}</strong></p>
-            <p>Date: ${item.date}<br>Échéance: ${item.echeance}</p>
+            <p><strong style="color: #da0b0b; ">${item.client}</strong></p>
+            <p >Date: ${item.date}<br>Échéance: ${item.echeance}</p>
           </div>
         </div>
         <table style="width: 100%; border-collapse: collapse; margin-top: 50px;">
@@ -106,7 +106,7 @@ export default function FacturesPage() {
           <tbody>
             <tr>
               <td style="padding: 15px; border-bottom: 1px solid #eee;">Prestation PitchFlow IA</td>
-              <td style="padding: 15px; text-align: right; border-bottom: 1px solid #eee;">${item.montant} ${item.devise}</td>
+              <td style="padding: 15px; text-align: right;color: #da0b0b;  border-bottom: 1px solid #eeeeee;">${item.montant} ${item.devise}</td>
             </tr>
           </tbody>
         </table>
