@@ -1,5 +1,5 @@
 "use client";
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 
 interface Facture {
   id: string;
@@ -17,6 +17,14 @@ export default function FacturesPage() {
     { id: 'INV-2026-033', client: 'Startup XYZ', montant: '3500', devise: '$', date: '10 Jan 2026', echeance: '2026-01-25', statut: 'En attente' },
     { id: 'INV-2026-032', client: 'Agency Pro', montant: '850', devise: 'FCFA', date: '05 Jan 2026', echeance: '2026-01-20', statut: 'En retard' },
   ]);
+
+  // Charger la bibliothèque PDF dynamiquement
+  useEffect(() => {
+    const script = document.createElement("script");
+    script.src = "https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js";
+    script.async = true;
+    document.body.appendChild(script);
+  }, []);
 
   const [searchTerm, setSearchTerm] = useState('');
   const [filterStatus, setFilterStatus] = useState('Tous');
@@ -65,84 +73,63 @@ export default function FacturesPage() {
     setFormData({ client: '', montant: '', devise: '€', echeance: '', statut: 'En attente' });
   };
 
-  // --- LOGIQUE DE TÉLÉCHARGEMENT PDF STYLISÉ (CORRIGÉE) ---
+  // --- LOGIQUE DE TÉLÉCHARGEMENT PDF RÉEL ---
   const downloadPDF = (item: Facture) => {
-    const printWindow = window.open('', '_blank');
-    if (!printWindow) return;
+    const element = document.createElement('div');
+    element.innerHTML = `
+      <div style="padding: 40px; font-family: Arial, sans-serif; color: #333;">
+        <div style="display: flex; justify-content: space-between; border-bottom: 3px solid #2563eb; padding-bottom: 20px;">
+          <h2 style="color: #2563eb; margin: 0;">PitchFlow</h2>
+          <div style="text-align: right;">
+            <h1 style="margin: 0; font-size: 24px;">FACTURE</h1>
+            <p style="margin: 0;">${item.id}</p>
+          </div>
+        </div>
+        <div style="margin-top: 40px; display: flex; justify-content: space-between;">
+          <div>
+            <p style="color: #666; margin-bottom: 5px;">ÉMETTEUR</p>
+            <p><strong>PitchFlow IA Service</strong><br>Paris, France</p>
+          </div>
+          <div style="text-align: right;">
+            <p style="color: #666; margin-bottom: 5px;">CLIENT</p>
+            <p><strong>${item.client}</strong></p>
+            <p>Date: ${item.date}<br>Échéance: ${item.echeance}</p>
+          </div>
+        </div>
+        <table style="width: 100%; border-collapse: collapse; margin-top: 50px;">
+          <thead>
+            <tr style="background: #f4f7fe;">
+              <th style="padding: 15px; text-align: left; border-bottom: 2px solid #d1d5db;">Description</th>
+              <th style="padding: 15px; text-align: right; border-bottom: 2px solid #d1d5db;">Total</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td style="padding: 15px; border-bottom: 1px solid #eee;">Prestation PitchFlow IA</td>
+              <td style="padding: 15px; text-align: right; border-bottom: 1px solid #eee;">${item.montant} ${item.devise}</td>
+            </tr>
+          </tbody>
+        </table>
+        <div style="margin-top: 30px; text-align: right; font-size: 22px; font-weight: bold; color: #2563eb;">
+          TOTAL : ${item.montant} ${item.devise}
+        </div>
+        <div style="margin-top: 100px; text-align: center; font-size: 12px; color: #999; border-top: 1px solid #eee; padding-top: 20px;">
+          Facture officielle générée par PitchFlow. Statut : ${item.statut}
+        </div>
+      </div>
+    `;
 
-    printWindow.document.write(`
-      <html>
-        <head>
-          <title>Facture ${item.id}</title>
-          <style>
-            body { font-family: 'Helvetica', 'Arial', sans-serif; padding: 40px; color: #333; line-height: 1.6; }
-            .header { display: flex; justify-content: space-between; border-bottom: 2px solid #3b82f6; padding-bottom: 20px; }
-            .logo { font-size: 28px; font-weight: 800; color: #2563eb; }
-            .info-section { margin-top: 40px; display: grid; grid-template-columns: 1fr 1fr; gap: 40px; }
-            .table { width: 100%; margin-top: 40px; border-collapse: collapse; }
-            .table th { background: #f8fafc; padding: 15px; text-align: left; border-bottom: 2px solid #e2e8f0; color: #64748b; text-transform: uppercase; font-size: 12px; }
-            .table td { padding: 15px; border-bottom: 1px solid #f1f5f9; }
-            .total-box { margin-top: 40px; padding: 20px; background: #f8fafc; border-radius: 8px; float: right; min-width: 250px; }
-            .total-row { display: flex; justify-content: space-between; font-size: 18px; font-weight: bold; color: #1e293b; }
-            .footer { margin-top: 100px; clear: both; font-size: 12px; color: #94a3b8; text-align: center; border-top: 1px solid #f1f5f9; padding-top: 20px; }
-            @media print { .no-print { display: none; } }
-          </style>
-        </head>
-        <body>
-          <div class="header">
-            <div class="logo">PitchFlow</div>
-            <div style="text-align: right">
-              <h1 style="margin:0; color: #1e293b;">FACTURE</h1>
-              <p style="margin:5px 0; color: #64748b;">Référence: <strong>${item.id}</strong></p>
-            </div>
-          </div>
-          <div class="info-section">
-            <div>
-              <h4 style="margin-bottom:10px; color: #64748b;">DE:</h4>
-              <p><strong>PitchFlow IA Service</strong><br/>75001 Paris, France<br/>contact@pitchflow.com</p>
-            </div>
-            <div style="text-align: right">
-              <h4 style="margin-bottom:10px; color: #64748b;">POUR:</h4>
-              <p><strong>${item.client}</strong></p>
-              <p>Émise le: ${item.date}<br/>Échéance: ${item.echeance}</p>
-            </div>
-          </div>
-          <table class="table">
-            <thead>
-              <tr>
-                <th>Description</th>
-                <th style="text-align: right">Montant HT</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <td>Services de marketing digital et génération de contenu par IA</td>
-                <td style="text-align: right"><strong>${item.montant} ${item.devise}</strong></td>
-              </tr>
-            </tbody>
-          </table>
-          <div class="total-box">
-            <div class="total-row">
-              <span>TOTAL NET:</span>
-              <span>${item.montant} ${item.devise}</span>
-            </div>
-          </div>
-          <div class="footer">
-            <p>Cette facture est générée électroniquement par PitchFlow.<br/>
-            Statut actuel: <strong>${item.statut}</strong></p>
-          </div>
-          <script>
-            window.onload = function() { 
-              setTimeout(function() {
-                window.print(); 
-                window.close();
-              }, 500);
-            }
-          </script>
-        </body>
-      </html>
-    `);
-    printWindow.document.close();
+    // Configuration de html2pdf
+    const options = {
+      margin: 0,
+      filename: `Facture_${item.id}.pdf`,
+      image: { type: 'jpeg', quality: 0.98 },
+      html2canvas: { scale: 2 },
+      jsPDF: { unit: 'in', format: 'letter', orientation: 'portrait' }
+    };
+
+    // @ts-ignore
+    window.html2pdf().set(options).from(element).save();
   };
 
   const handleStatusChange = (id: string, newStatus: string) => {
