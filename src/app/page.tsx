@@ -195,7 +195,7 @@ export default function Home() {
         <li><i className="fa-solid fa-circle-check"></i>Makerting & Copywriting </li>
         <li><i className="fa-solid fa-circle-check"></i> Facturation & rapports</li>
       </ul>
-      <button className="btn-outline-pricing">Commencer l'essai</button>
+      <button className="btn-outline-pricing">Essai gratuit</button>
     </div>
 
     {/* Plan 50 Crédits - Recommandé */}
@@ -210,7 +210,7 @@ export default function Home() {
         <li><i className="fa-solid fa-circle-check"></i> Accès illimité aux differents outils</li>
         <li><i className="fa-solid fa-circle-check"></i> Export PDF disponible</li>
       </ul>
-      <button className="btn-primary-pricing">Acheter 100 crédits</button>
+      <button className="btn-primary-pricing">+ 100 crédits</button>
     </div>
 
     {/* Plan 100 Crédits - Meilleure Valeur */}
@@ -224,7 +224,7 @@ export default function Home() {
         <li><i className="fa-solid fa-circle-check"></i> Génération de contenu haute qualité</li>
         <li><i className="fa-solid fa-circle-check"></i> Export PDF disponible</li>
       </ul>
-      <button className="btn-blue-pricing">Acheter 100 crédits</button>
+      <button className="btn-blue-pricing">+ 200 crédits</button>
     </div>
   </div>
 
