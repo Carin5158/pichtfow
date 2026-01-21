@@ -50,7 +50,7 @@ export default function DashboardPage() {
         ))}
       </div>
 
-      <br /> <br /> 
+      <br /> <br /> <br />
     </div>
   );
 }
