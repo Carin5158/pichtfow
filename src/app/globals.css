@@ -2045,3 +2045,202 @@ color: red;}
   width: fit-content;
   font-family: "Poppins", sans-serif;
 }
+
+
+
+
+/* ============================================================
+   SECTION SHOWCASE (STYLE PAYONEER)
+   ============================================================ */
+.showcase-section {
+    padding: 100px 5%;
+    margin-top: -20px;
+    background: #fcfdfe;
+    overflow: hidden;
+    margin-bottom: 0;
+}
+
+.showcase-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    gap: 80px;
+}
+
+.showcase-text {
+    flex: 1;
+}
+
+.showcase-text h2 {
+    font-size: 2rem;
+    line-height: 1.2;
+    margin-bottom: 20px;
+}
+
+.showcase-text h2 span {
+  color: var(--primary);
+}
+
+.showcase-text p {
+    font-size: 1.1rem;
+    color: #64748b;
+    margin-bottom: 30px;
+}
+
+.showcase-list {
+    list-style: none;
+}
+
+.showcase-list li {
+    margin-bottom: 15px;
+    font-weight: 600;
+    color: #1e293b;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.showcase-list i {
+    color: #2563eb;
+    background: #eff6ff;
+    padding: 5px;
+    border-radius: 50%;
+    font-size: 0.8rem;
+}
+
+/* Partie Visuelle */
+.showcase-visual {
+    flex: 1;
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.circle-bg {
+    position: absolute;
+    width: 450px;
+    height: 450px;
+    background: linear-gradient(135deg, #eff6ff 0%, #f5f3ff 100%);
+    border-radius: 50%;
+    z-index: 1;
+}
+
+.person-img {
+    width: 380px;
+    height: 480px;
+    object-fit: cover;
+    border-radius: 0 0 200px 200px; /* Effet arrondi en bas */
+    position: relative;
+    z-index: 2;
+}
+
+/* Styles des Badges Flottants */
+.floating-badge {
+    position: absolute;
+    background: white;
+    padding: 12px 20px;
+    border-radius: 16px;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.08);
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    z-index: 10;
+    animation: float 4s ease-in-out infinite;
+}
+
+.badge-top-left {
+    top: 10%;
+    left: -20px;
+}
+
+.badge-mid-right {
+    top: 15%;
+    right: -10px;
+    border-radius: 50%;
+    width: 70px;
+    height: 70px;
+    justify-content: center;
+    background: linear-gradient(135deg, #2563eb, #7c3aed);
+    color: white;
+    font-size: 1.5rem;
+}
+
+.badge-bottom-left {
+    bottom: 20%;
+    left: 20px;
+    animation-delay: 1s;
+}
+
+.badge-logo {
+    width: 40px;
+    height: 40px;
+    background: #f1f5f9;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #2563eb;
+}
+
+.badge-icon-check {
+    width: 32px;
+    height: 32px;
+    background: #2563eb;
+    color: white;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.8rem;
+}
+
+.badge-content span {
+    display: block;
+    font-weight: 700;
+    font-size: 0.95rem;
+}
+
+.badge-content small {
+    color: #64748b;
+    font-size: 0.75rem;
+}
+
+/* Décorations (points) */
+.dot {
+    position: absolute;
+    border-radius: 50%;
+    z-index: 5;
+}
+.dot-1 { width: 15px; height: 15px; background: #38bdf8; bottom: 50px; left: 100px; }
+.dot-2 { width: 12px; height: 12px; background: #f43f5e; bottom: 80px; right: 50px; }
+
+/* Animation de flottement */
+@keyframes float {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-10px); }
+}
+
+/* RESPONSIVE */
+@media (max-width: 992px) {
+    .showcase-container {
+        flex-direction: column;
+        text-align: center;
+        gap: 40px;
+    }
+    .showcase-list {
+        display: inline-block;
+        text-align: left;
+    }
+    .circle-bg { width: 350px; height: 350px; }
+    .person-img { width: 300px; height: 400px; }
+}
+
+@media (max-width: 600px) {
+    .badge-top-left, .badge-mid-right {
+        transform: scale(0.8);
+    }
+    .badge-top-left { left: -10px; top: 0; }
+    .badge-mid-right { right: -10px; top: 0; }
+}

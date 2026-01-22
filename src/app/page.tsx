@@ -162,6 +162,57 @@ export default function Home() {
   </div>
 </section>
 
+<section className="showcase-section reveal">
+  <div className="showcase-container">
+    {/* Colonne Texte */}
+    <div className="showcase-text">
+      <h2>Gérez tout votre <span>écosystème</span> business</h2>
+      <p>
+        De la rédaction de vos publicités à l'encaissement de vos factures, 
+        PitchFlow centralise vos outils pour vous laisser vous concentrer sur l'essentiel.
+      </p>
+      <ul className="showcase-list">
+        {/* <li><i className="fa-solid fa-check"></i> Automatisation intelligente</li> */}
+        <li><i className="fa-solid fa-check"></i> Interface ultra-fluide</li>
+        <li><i className="fa-solid fa-check"></i> Support disponible 24/7</li>
+      </ul>
+    </div>
+
+    {/* Colonne Visuelle (Inspirée de l'image Payoneer) */}
+    <div className="showcase-visual">
+      <div className="circle-bg"></div>
+      
+      {/* Image de la personne (Remplace par ta propre image si besoin) */}
+      <img src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?q=80&w=600&auto=format&fit=crop" alt="Entrepreneur" className="person-img" />
+
+      {/* Badges Flottants */}
+      <div className="floating-badge badge-top-left">
+        <div className="badge-logo"><i className="fa-solid fa-wand-magic-sparkles"></i></div>
+        <div className="badge-content">
+          <span>PitchFlow AI</span>
+          <small>Marketing Engine</small>
+        </div>
+      </div>
+
+      <div className="floating-badge badge-mid-right">
+        <div className="badge-logo-globe"><i className="fa-solid fa-earth-africa"></i></div>
+      </div>
+
+      <div className="floating-badge badge-bottom-left">
+        <div className="badge-icon-check"><i className="fa-solid fa-check"></i></div>
+        <div className="badge-content">
+          <span className="amount">500 €</span>
+          <small>Payée</small>
+        </div>
+      </div>
+
+      {/* Petits points décoratifs */}
+      <div className="dot dot-1"></div>
+      <div className="dot dot-2"></div>
+    </div>
+  </div>
+</section>
+
 {/* --- SECTION CTA FINAL --- */} 
 <section className="final-cta reveal">
   <div className="cta-content">
